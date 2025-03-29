@@ -35,14 +35,12 @@ const Calculator: React.FC = () => {
   // Evaluate the expression
   const calculate = () => {
     try {
-      // Using eval for demonstration; consider a safe math library in production
-      // eslint-disable-next-line no-eval
       const result = eval(input);
       setHistory((prev) => [...prev, `${input} = ${result}`]);
       setInput(result.toString());
       setHistoryIndex(-1);
-    } catch (err) {
-      setError('Invalid Expression');
+    } catch (error) {
+      setError('Invalid Expression'+ error);
     }
   };
 
@@ -104,7 +102,7 @@ const Calculator: React.FC = () => {
       setInput(result.toString());
       setHistoryIndex(-1);
     } catch (err) {
-      setError('Invalid Operation');
+      setError('Invalid Operation'+err);
     }
   };
 
