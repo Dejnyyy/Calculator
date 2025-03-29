@@ -108,6 +108,39 @@ const Calculator: React.FC = () => {
     }
   };
 
+  // Submit exponent modal
+  const handleExponentSubmit = () => {
+    const base = parseFloat(input);
+    const exp = parseFloat(exponentValue);
+    if (isNaN(base) || isNaN(exp)) {
+      setError('Invalid number or exponent');
+      return;
+    }
+    const result = Math.pow(base, exp);
+    setHistory((prev) => [...prev, `power(${input}, ${exponentValue}) = ${result}`]);
+    setInput(result.toString());
+    setIsExponentModalOpen(false);
+    setExponentValue('');
+    setHistoryIndex(-1);
+  };
+
+  // Submit fraction modal
+  const handleFractionSubmit = () => {
+    const num = parseFloat(fractionNumerator);
+    const denom = parseFloat(fractionDenom);
+    if (isNaN(num) || isNaN(denom) || denom === 0) {
+      setError('Invalid fraction input');
+      return;
+    }
+    const result = num / denom;
+    setHistory((prev) => [...prev, `fraction(${fractionNumerator}/${fractionDenom}) = ${result}`]);
+    setInput(result.toString());
+    setIsFractionModalOpen(false);
+    setFractionNumerator('');
+    setFractionDenom('');
+    setHistoryIndex(-1);
+  };
+
   // Update 3D rotation based on pointer position
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -125,8 +158,11 @@ const Calculator: React.FC = () => {
     setTransform('rotateX(0deg) rotateY(0deg)');
   };
 
-  // Handle arrow key events to cycle through history
+  // Handle key events for main calculator
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    // If any modal is open, skip main key handling.
+    if (isExponentModalOpen || isFractionModalOpen) return;
+
     if (event.key === 'ArrowUp') {
       if (history.length > 0) {
         const newIndex = historyIndex === -1 ? history.length - 1 : Math.max(0, historyIndex - 1);
@@ -152,6 +188,18 @@ const Calculator: React.FC = () => {
           setHistoryIndex(-1);
           setInput('');
         }
+      }
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      calculate();
+    } else if (event.key === 'Backspace') {
+      event.preventDefault();
+      backspace();
+    } else {
+      const allowedKeys = "0123456789+-*/().";
+      if (allowedKeys.includes(event.key)) {
+        event.preventDefault();
+        setInput((prev) => prev + event.key);
       }
     }
   };
@@ -395,6 +443,7 @@ const Calculator: React.FC = () => {
               type="number"
               value={exponentValue}
               onChange={(e) => setExponentValue(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') { handleExponentSubmit(); } }}
               className="border border-gray-300 rounded p-2 mb-4 w-full"
               placeholder="Exponent"
             />
@@ -409,20 +458,7 @@ const Calculator: React.FC = () => {
                 Cancel
               </button>
               <button
-                onClick={() => {
-                  const base = parseFloat(input);
-                  const exp = parseFloat(exponentValue);
-                  if (isNaN(base) || isNaN(exp)) {
-                    setError('Invalid number or exponent');
-                    return;
-                  }
-                  const result = Math.pow(base, exp);
-                  setHistory((prev) => [...prev, `power(${input}, ${exponentValue}) = ${result}`]);
-                  setInput(result.toString());
-                  setIsExponentModalOpen(false);
-                  setExponentValue('');
-                  setHistoryIndex(-1);
-                }}
+                onClick={handleExponentSubmit}
                 className="px-4 py-2 bg-blue-500 text-white rounded"
               >
                 Calculate
@@ -448,6 +484,7 @@ const Calculator: React.FC = () => {
               type="number"
               value={fractionDenom}
               onChange={(e) => setFractionDenom(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') { handleFractionSubmit(); } }}
               className="border border-gray-300 rounded p-2 mb-4 w-full"
               placeholder="Denominator"
             />
@@ -463,21 +500,7 @@ const Calculator: React.FC = () => {
                 Cancel
               </button>
               <button
-                onClick={() => {
-                  const num = parseFloat(fractionNumerator);
-                  const denom = parseFloat(fractionDenom);
-                  if (isNaN(num) || isNaN(denom) || denom === 0) {
-                    setError('Invalid fraction input');
-                    return;
-                  }
-                  const result = num / denom;
-                  setHistory((prev) => [...prev, `fraction(${fractionNumerator}/${fractionDenom}) = ${result}`]);
-                  setInput(result.toString());
-                  setIsFractionModalOpen(false);
-                  setFractionNumerator('');
-                  setFractionDenom('');
-                  setHistoryIndex(-1);
-                }}
+                onClick={handleFractionSubmit}
                 className="px-4 py-2 bg-blue-500 text-white rounded"
               >
                 Calculate
