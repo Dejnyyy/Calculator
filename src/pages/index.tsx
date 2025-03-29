@@ -206,7 +206,7 @@ const Calculator: React.FC = () => {
 
   return (
     <div
-      className="min-h-screen text-black bg-gradient-to-r from-blue-100 to-purple-100 p-4 flex items-center justify-center"
+      className="min-h-screen text-black bg-gradient-to-r from-blue-200 to-purple-200 p-4 flex items-center justify-center"
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
@@ -229,9 +229,74 @@ const Calculator: React.FC = () => {
             />
             {error && <div className="text-red-500 mt-1 text-sm">{error}</div>}
           </div>
+   {/* Scientific Functions */}
+   <div className="mt-4 grid grid-cols-5 gap-3">
+            <button
+              onClick={() => handleScientific('sin')}
+              className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
+            >
+              sin
+            </button>
+            <button
+              onClick={() => handleScientific('cos')}
+              className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
+            >
+              cos
+            </button>
+            <button
+              onClick={() => handleScientific('tan')}
+              className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
+            >
+              tan
+            </button>
+            <button
+              onClick={() => handleScientific('log')}
+              className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
+            >
+              log
+            </button>
+            <button
+              onClick={() => handleScientific('exp')}
+              className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
+            >
+              exp
+            </button>
+            <button
+              onClick={() => handleScientific('square')}
+              className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
+            >
+              x²
+            </button>
+            <button
+              onClick={() => handleScientific('cube')}
+              className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
+            >
+              x³
+            </button>
+            <button
+              onClick={() => handleScientific('cuberoot')}
+              className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
+            >
+              ∛
+            </button>
+            <button
+              onClick={() => setIsExponentModalOpen(true)}
+              className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
+            >
+              x^
+            </button>
+            <button
+              onClick={() => setIsFractionModalOpen(true)}
+              className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
+            >
+              2/3
+            </button>
+        </div>
+
 
           {/* Main Calculator Buttons */}
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 gap-3 mt-2">
+            
             <button
               onClick={clear}
               className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
@@ -351,71 +416,9 @@ const Calculator: React.FC = () => {
               =
             </button>
           </div>
-
-          {/* Scientific Functions */}
-          <div className="mt-4 grid grid-cols-5 gap-3">
-            <button
-              onClick={() => handleScientific('sin')}
-              className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
-            >
-              sin
-            </button>
-            <button
-              onClick={() => handleScientific('cos')}
-              className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
-            >
-              cos
-            </button>
-            <button
-              onClick={() => handleScientific('tan')}
-              className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
-            >
-              tan
-            </button>
-            <button
-              onClick={() => handleScientific('log')}
-              className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
-            >
-              log
-            </button>
-            <button
-              onClick={() => handleScientific('exp')}
-              className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
-            >
-              exp
-            </button>
-            <button
-              onClick={() => handleScientific('square')}
-              className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
-            >
-              x²
-            </button>
-            <button
-              onClick={() => handleScientific('cube')}
-              className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
-            >
-              x³
-            </button>
-            <button
-              onClick={() => handleScientific('cuberoot')}
-              className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
-            >
-              ∛
-            </button>
-            <button
-              onClick={() => setIsExponentModalOpen(true)}
-              className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
-            >
-              x^
-            </button>
-            <button
-              onClick={() => setIsFractionModalOpen(true)}
-              className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 rounded transition-transform transform hover:scale-105"
-            >
-              2/3
-            </button>
           </div>
-        </div>
+
+       
 
         {/* Calculation History Panel */}
         <div className="bg-white rounded-lg shadow-lg p-6 flex-1">
