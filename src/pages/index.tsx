@@ -139,17 +139,6 @@ const Calculator: React.FC = () => {
     setHistoryIndex(-1);
   };
 
-  // Update 3D rotation based on pointer position
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    const halfWidth = rect.width / 2;
-    const halfHeight = rect.height / 2;
-    const rotateY = ((x - halfWidth) / halfWidth) * 10; // max 10° rotation
-    const rotateX = -((y - halfHeight) / halfHeight) * 10;
-    setTransform(`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`);
-  };
 
   // Reset rotation when pointer leaves
   const handleMouseLeave = () => {
@@ -213,7 +202,6 @@ const Calculator: React.FC = () => {
         <div
           className="bg-white rounded-lg shadow-lg p-6 mb-6 md:mb-0 flex-1 transition-transform duration-300"
           style={{ perspective: '1000px', transform }}
-          onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
           {/* Display Panel */}
