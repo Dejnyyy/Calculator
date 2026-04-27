@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useState, useEffect, useRef } from 'react';
 
 const Calculator: React.FC = () => {
@@ -191,12 +192,38 @@ const Calculator: React.FC = () => {
     }
   };
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com';
+  const pageTitle = 'Scientific Calculator — Free Online Calculator';
+  const pageDescription = 'A free online scientific calculator with support for trigonometry, logarithms, exponents, square roots, fractions, and calculation history. Works in your browser, no install needed.';
+
   return (
+    <>
+      <Head>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={siteUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+      </Head>
+
     <div
-      className="min-h-screen text-black bg-gradient-to-r from-blue-200 to-purple-200 p-4 flex items-center justify-center"
+      className="min-h-screen text-black bg-gradient-to-r from-blue-200 to-purple-200 p-4 flex flex-col items-center justify-center"
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Scientific Calculator</h1>
+      <p className="text-gray-600 mb-6 text-center max-w-2xl">
+        A free online scientific calculator supporting basic arithmetic, trigonometric functions (sin, cos, tan),
+        logarithms, square roots, cube roots, exponents, fractions, and more — with full calculation history.
+      </p>
       <div className="w-full max-w-4xl flex flex-col md:flex-row md:space-x-6">
         {/* Calculator Card */}
         <div
@@ -423,6 +450,21 @@ const Calculator: React.FC = () => {
         </div>
       </div>
 
+      <footer className="mt-8 text-sm text-gray-500 text-center">
+        <p>
+          Need more tools? Visit{' '}
+          <a
+            href="https://www.wolframalpha.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-gray-700"
+          >
+            WolframAlpha
+          </a>{' '}
+          for advanced computations.
+        </p>
+      </footer>
+
       {/* Exponent Modal */}
       {isExponentModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center backdrop-blur-lg bg-opacity-10">
@@ -499,6 +541,7 @@ const Calculator: React.FC = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 
