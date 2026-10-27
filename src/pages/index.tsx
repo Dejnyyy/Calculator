@@ -192,9 +192,9 @@ const Calculator: React.FC = () => {
     }
   };
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://calculator.dejny.eu';
   const pageTitle = 'Scientific Calculator — Free Online Calculator';
-  const pageDescription = 'A free online scientific calculator with support for trigonometry, logarithms, exponents, square roots, fractions, and calculation history. Works in your browser, no install needed.';
+  const pageDescription = 'Free online scientific calculator with trigonometry, logarithms, exponents, roots, fractions and calculation history. Works in your browser, no install.';
 
   return (
     <>
@@ -208,10 +208,66 @@ const Calculator: React.FC = () => {
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
 
+        <meta property="og:image" content={`${siteUrl}/og-image.png`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="Scientific Calculator" />
+        <link rel="canonical" href={`${siteUrl}/`} />
+
         {/* Twitter Card */}
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://dejny.eu/#organization",
+                  name: "Dejny",
+                  url: "https://dejny.eu",
+                  logo: { "@type": "ImageObject", url: "https://dejny.eu/icon.png", width: 512, height: 512 },
+                  email: "dejny@dejny.eu",
+                  address: { "@type": "PostalAddress", addressLocality: "Praha", addressCountry: "CZ" },
+                  contactPoint: { "@type": "ContactPoint", contactType: "customer support", email: "dejny@dejny.eu", availableLanguage: ["cs", "en"] },
+                  sameAs: [
+                    "https://github.com/Dejnyyy",
+                    "https://linkedin.com/in/dejny",
+                    "https://www.instagram.com/_dejny",
+                    "https://www.tiktok.com/@dejnyyy",
+                  ],
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": `${siteUrl}/#website`,
+                  name: "Scientific Calculator",
+                  url: siteUrl,
+                  inLanguage: "en",
+                  publisher: { "@id": "https://dejny.eu/#organization" },
+                },
+                {
+                  "@type": "WebApplication",
+                  "@id": `${siteUrl}/#app`,
+                  name: "Scientific Calculator",
+                  url: siteUrl,
+                  description: pageDescription,
+                  image: `${siteUrl}/og-image.png`,
+                  applicationCategory: "UtilitiesApplication",
+                  operatingSystem: "Any",
+                  inLanguage: "en",
+                  isAccessibleForFree: true,
+                  offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+                  author: { "@id": "https://dejny.eu/#organization" },
+                  publisher: { "@id": "https://dejny.eu/#organization" },
+                },
+              ],
+            }),
+          }}
+        />
       </Head>
 
     <div
@@ -450,7 +506,36 @@ const Calculator: React.FC = () => {
         </div>
       </div>
 
+      <section className="mt-10 max-w-2xl text-gray-700 leading-relaxed space-y-3">
+        <h2 className="text-xl font-bold text-gray-800">How to use the calculator</h2>
+        <p>
+          Type numbers and operators with your keyboard or click the buttons. Press Enter to calculate, Backspace to
+          delete the last character and use the arrow keys up and down to bring back earlier calculations from the
+          history panel. Every result is saved to the history, so you can check your steps or reuse a number later.
+        </p>
+        <p>
+          The function buttons work on the number on the display: sine, cosine and tangent (in radians), the natural
+          logarithm, the exponential function, square and cube, square root and cube root. For powers with any
+          exponent and for fractions, a small dialog opens where you enter the exponent or the numerator and
+          denominator.
+        </p>
+        <p>
+          The calculator runs entirely in your browser, so there is nothing to install and no account to create. It
+          works on desktop, tablet and phone and is free to use for homework, work or quick everyday sums.
+        </p>
+      </section>
+
       <footer className="mt-8 text-sm text-gray-500 text-center">
+        <p className="mb-2">
+          Made by{' '}
+          <a href="https://dejny.eu" className="underline hover:text-gray-700">Dejny</a>
+          {' · '}
+          <a href="https://wordly.dejny.eu" className="underline hover:text-gray-700">Wordly</a>
+          {' · '}
+          <a href="https://roulette.dejny.eu" className="underline hover:text-gray-700">Roulette</a>
+          {' · '}
+          <a href="https://github.com/Dejnyyy/Calculator" className="underline hover:text-gray-700">Source on GitHub</a>
+        </p>
         <p>
           Need more tools? Visit{' '}
           <a
